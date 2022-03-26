@@ -46,6 +46,12 @@
             [[pos destination] [destination pos]])
     board))
 
+
+;; (assoc-in {} [:cookie :monster :vocals] "Finntroll")
+;; (get-in {:cookie {:monster {:vocals "Finntroll"}}} [:cookie :monster])
+;; (assoc-in {} [1 :connections 4] 2)
+
+
 (defn connect-right
   [board max-pos pos]
   (let [neighbor (inc pos)
@@ -61,6 +67,8 @@
         destination (+ 1 row neighbor)]
     (connect board max-pos pos neighbor destination)))
 
+;;(connect-down-left {} 15 1) 
+
 (defn connect-down-right
   [board max-pos pos]
   (let [row (row-num pos)
@@ -75,6 +83,18 @@
     (reduce (fn [new-board connector] (connector new-board max-pos pos))
             pegged-board
             [connect-right connect-down-left connect-down-right])))
+;;(add-pos {} 15 1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (defn clean                                                                 ;;
+;;   [text]                                                                    ;;
+;;   (reduce (fn [string string-fn] (string-fn string))                        ;;
+;;            text                                                             ;;
+;;            [clojure.string/trim #(clojure.string/replace % #"lol" "LOL")])) ;;
+;; (clean "YABADABA DOO lol   ")                                               ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 
 (defn new-board
   [rows]
@@ -83,6 +103,8 @@
     (reduce (fn [board pos] (add-pos board max-pos pos))
             initial-board
             (range 1 (inc max-pos)))))
+
+
 ;;;;
 ;; Move pegs
 ;;;;
